@@ -10,8 +10,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.HomeActivity">
+    tools:context=".ui.activity.HomeActivity"
+    android:orientation="vertical">
     <TextView
+        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:scaleType="fitCenter"
@@ -19,6 +21,15 @@
         android:textSize="20sp"
         android:text="@{viewmodel.banner.data.get(0).title}"
          />
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        android:text="hhh"
+        android:textColor="@color/white"
+        />
+
 
 </LinearLayout>
 </layout>

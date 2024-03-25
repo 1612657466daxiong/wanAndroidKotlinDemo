@@ -21,6 +21,8 @@ class RequestInterceptor constructor(inetinfo:INetWorkInfo):Interceptor {
         builder.addHeader("appVersionCode",iNetWorkInfo.getAppVersionCode())
         builder.addHeader("appVersionName",iNetWorkInfo.getAppVersionName())
         builder.addHeader("datetime",nowDateTime)
+        builder.addHeader("Cookie","loginUserName=Chivers")
+        builder.addHeader("Cookie","loginUserPassword=123456")
         return chain.proceed(builder.build())
     }
 }

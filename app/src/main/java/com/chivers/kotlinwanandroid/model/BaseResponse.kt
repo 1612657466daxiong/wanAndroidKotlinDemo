@@ -1,6 +1,6 @@
 package com.chivers.kotlinwanandroid.model
 
-interface BaseResponse {
-    var errorCode:Int
-    var errorMsg:String
-}
+abstract class BaseResponse (
+    open val errorCode:Int,
+    open val errorMsg:String
+)

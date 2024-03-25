@@ -1,10 +1,10 @@
 package com.chivers.kotlinwanandroid.model
 
-data class BannerResponse(
+data class BannerResponse (
     val data:List<Banner>,
-    val errorCode:Int,
-    val errorMsg:String
-)
+    override val errorMsg:String,
+    override val errorCode: Int,
+):BaseResponse(errorCode,errorMsg)
 
 data class Banner(
     val desc: String,
