@@ -20,4 +20,5 @@
     <string name="menu_home_title">首页</string>
     <string name="knowledge_sys">知识体系</string>
     <string name="hot_point">热搜</string>
+    <string name="menu_collect">收藏</string>
 </resources>

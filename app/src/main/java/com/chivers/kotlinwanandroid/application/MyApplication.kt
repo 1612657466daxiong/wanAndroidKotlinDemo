@@ -4,6 +4,7 @@ import android.app.Application
 import com.chivers.kotlinwanandroid.network.INetWorkInfo
 import com.chivers.kotlinwanandroid.network.NetWorkApi
 import com.chivers.kotlinwanandroid.network.NetWorkRequiredInfo
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.tencent.mmkv.MMKV
 
 class MyApplication :Application(){
@@ -11,5 +12,6 @@ class MyApplication :Application(){
         super.onCreate()
         NetWorkApi.init(NetWorkRequiredInfo(this))
         MMKV.initialize(this)
+        Fresco.initialize(this)
     }
 }

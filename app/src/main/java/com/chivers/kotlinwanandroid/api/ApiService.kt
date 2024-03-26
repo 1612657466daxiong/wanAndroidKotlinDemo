@@ -1,6 +1,7 @@
 package com.chivers.kotlinwanandroid.api
 
 import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
+import com.chivers.kotlinwanandroid.model.ArticlesResponse
 import com.chivers.kotlinwanandroid.model.BannerResponse
 import com.chivers.kotlinwanandroid.model.UserInfoResponse
 import kotlinx.coroutines.flow.Flow
@@ -14,4 +15,7 @@ interface ApiService {
 
     @GET("/user/lg/userinfo/json")
     fun getUserInfoCall():Flow<UserInfoResponse>
+
+    @GET("/article/list//json")
+    fun getArticlesCall():Flow<ArticlesResponse>
 }

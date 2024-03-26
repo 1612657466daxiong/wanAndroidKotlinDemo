@@ -10,7 +10,7 @@ class ResponseInterceptor:Interceptor {
        val requestTime = System.currentTimeMillis()
         val response = chain.proceed(chain.request())
         Log.i(TAG,"requestionTime = " + (System.currentTimeMillis()-requestTime) +" ms")
-        Log.i(TAG,"Resutl = "+response.body)
+        Log.i(TAG,"Resutl = "+response.body.toString())
         return response
     }
 
