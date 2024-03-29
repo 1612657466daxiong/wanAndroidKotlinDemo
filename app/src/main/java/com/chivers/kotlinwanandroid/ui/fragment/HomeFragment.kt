@@ -1,6 +1,7 @@
 package com.chivers.kotlinwanandroid.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.chivers.kotlinwanandroid.databinding.FragmentHomeBinding
 import com.chivers.kotlinwanandroid.repository.HomeFragmentRepository
 import com.chivers.kotlinwanandroid.repository.HomeRepository
@@ -18,7 +20,7 @@ import com.chivers.kotlinwanandroid.viewmodels.HomeViewModel
 import com.chivers.kotlinwanandroid.viewmodels.HomeViewModelFactory
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment()  {
 
     private var _binding: FragmentHomeBinding? = null
     private var adapter:HomeBannerAdapter? =null
@@ -28,6 +30,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private  var homeViewModel: HomeFragmentViewModel? =null
+    private var changeCallback:OnPageChangeCallback?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,8 +41,11 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
         adapter  =  HomeBannerAdapter()
         binding.homeBanner.adapter = adapter
+        binding.homeList.adapter
         return root
     }
+
+
 
     override fun onStart() {
         super.onStart()
@@ -54,6 +60,8 @@ class HomeFragment : Fragment() {
                 it->binding?.viewmodel = homeViewModel
             adapter?.setData(binding.viewmodel?.banner?.value?.data)
         }
+
+
     }
 
     override fun onDestroyView() {

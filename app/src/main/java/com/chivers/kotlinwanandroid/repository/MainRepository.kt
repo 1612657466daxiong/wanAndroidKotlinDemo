@@ -18,12 +18,12 @@ class MainRepository:BaseRepository() {
     val failed:MutableLiveData<String> = MutableLiveData()
     fun getUserInfoRequest():MutableLiveData<UserInfoResponse>{
         MainScope().launch {
-            NetWorkApi.createService(ApiService::class.java)?.getUserInfoCall()
-                ?.flowOn(Dispatchers.IO)
-                ?.catch {
-                    Log.e("xqw","rrrrr"+it?.message)
-                    failed.postValue(it?.message)
-                }?.map { value -> value  }?.flowOn(Dispatchers.Main)?.collect(){
+            NetWorkApi.createService(ApiService::class.java).getUserInfoCall()
+                .flowOn(Dispatchers.IO)
+                .catch {
+                    Log.e("xqw","rrrrr"+it.message)
+                    failed.postValue(it.message)
+                }.map { value -> value  }.flowOn(Dispatchers.Main).collect(){
                     Log.e("xqw","rrrrr qingqiu"+Thread.currentThread().name)
                     userInfo.value = it
                 }

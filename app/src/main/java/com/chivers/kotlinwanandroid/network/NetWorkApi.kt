@@ -23,11 +23,11 @@ object NetWorkApi  {
         netWorkInfo = inetworkInfo
     }
 
-    fun <T> createService(serviceClass:Class<T>): T? {
-        return getRetrofit(serviceClass)?.create(serviceClass)
+    fun <T> createService(serviceClass:Class<T>): T {
+        return getRetrofit(serviceClass).create(serviceClass)
     }
 
-    fun getOkhttpClient():OkHttpClient?{
+    fun getOkhttpClient():OkHttpClient{
         if(okHttpClient==null){
             val  builder:OkHttpClient.Builder = OkHttpClient.Builder()
             val cacheSize = 100*1024*1024
@@ -42,12 +42,12 @@ object NetWorkApi  {
             }
             okHttpClient = builder.build()
         }
-        return okHttpClient
+        return okHttpClient!!
     }
 
-    fun <T> getRetrofit(serviceClass:Class<T>): Retrofit? {
+    fun <T> getRetrofit(serviceClass:Class<T>): Retrofit {
         if(retrofitHashMap[BASE_URL+serviceClass.name] !=null){
-            return retrofitHashMap[BASE_URL+serviceClass.name]
+            return retrofitHashMap[BASE_URL+serviceClass.name]!!
         }
         val builder = Retrofit.Builder()
         builder.baseUrl(BASE_URL)

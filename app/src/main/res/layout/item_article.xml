@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.facebook.drawee.view.SimpleDraweeView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/ivProfileTop"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ivProfileTop"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:textAlignment="viewEnd"
+        android:textSize="15sp"
+        android:textColor="#999999"
+        android:id="@+id/tvUploader"
+        android:layout_height="wrap_content"/>
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:textAlignment="viewEnd"
+        android:textSize="15sp"
+        android:textColor="#999999"
+        android:id="@+id/tvTime"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTime"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="#333333"
+        android:text=""
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tvAuthor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/ivCollect"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
