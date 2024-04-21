@@ -1,5 +1,6 @@
 package com.chivers.kotlinwanandroid.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,16 @@ class HomeArticlesAdapter : RecyclerView.Adapter<HomeArticlesAdapter.ArticleView
         private val mTvUplader = itemView.findViewById<TextView>(R.id.tvUploader)
         private val mIvProfile = itemView.findViewById<SimpleDraweeView>(R.id.ivProfileTop)
         fun bindData(article: Article){
-
+//            mIvProfile.setImageURI(article.author)
+            if(article.author.isEmpty())  mTvUplader.setText(article.shareUser)
+            else mTvUplader.setText(article.author)
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public fun setData(list:List<Article>?){
+        data = list as ArrayList<Article>
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
@@ -33,6 +42,6 @@ class HomeArticlesAdapter : RecyclerView.Adapter<HomeArticlesAdapter.ArticleView
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-
+        holder.bindData(data.get(position))
     }
 }

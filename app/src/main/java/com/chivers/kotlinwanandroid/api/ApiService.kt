@@ -7,6 +7,7 @@ import com.chivers.kotlinwanandroid.model.UserInfoResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.Field
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 interface ApiService {
@@ -16,6 +17,6 @@ interface ApiService {
     @GET("/user/lg/userinfo/json")
     fun getUserInfoCall():Flow<UserInfoResponse>
 
-    @GET("/article/list//json")
-    fun getArticlesCall():Flow<ArticlesResponse>
+    @GET("/article/list/{page_index}/json")
+    fun getArticlesCall(@Path("page_index") pageIndex:Int):Flow<ArticlesResponse>
 }

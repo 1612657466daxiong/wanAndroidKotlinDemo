@@ -40,7 +40,7 @@ class HomeFragmentRepository :BaseRepository() {
     fun getArticles():MutableLiveData<ArticlesResponse> {
         MainScope().launch {
             NetWorkApi.createService(ApiService::class.java)
-                .getArticlesCall().flowOn(Dispatchers.IO).catch {
+                .getArticlesCall(1).flowOn(Dispatchers.IO).catch {
                     Log.e("xqw","rrrrr"+it.message)
                     failedArticle.postValue(it.message)
                 }.map { value -> value }.flowOn(Dispatchers.Main).collect() {
