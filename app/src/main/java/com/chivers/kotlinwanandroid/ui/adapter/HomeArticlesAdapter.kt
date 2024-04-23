@@ -18,17 +18,24 @@ class HomeArticlesAdapter : RecyclerView.Adapter<HomeArticlesAdapter.ArticleView
         private val mTvAuthor = itemView.findViewById<TextView>(R.id.tvAuthor)
         private val mTvUplader = itemView.findViewById<TextView>(R.id.tvUploader)
         private val mIvProfile = itemView.findViewById<SimpleDraweeView>(R.id.ivProfileTop)
+        private val mTvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         fun bindData(article: Article){
 //            mIvProfile.setImageURI(article.author)
             if(article.author.isEmpty())  mTvUplader.setText(article.shareUser)
             else mTvUplader.setText(article.author)
+            if (article.title.isNotEmpty()){
+                mTvTitle.setText(article.title)
+            }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public fun setData(list:List<Article>?){
-        data = list as ArrayList<Article>
-        notifyDataSetChanged()
+        if (list!=null){
+            data = list as ArrayList<Article>
+            notifyDataSetChanged()
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {

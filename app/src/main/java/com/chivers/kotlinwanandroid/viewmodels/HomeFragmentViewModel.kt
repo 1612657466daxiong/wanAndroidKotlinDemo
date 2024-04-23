@@ -1,5 +1,6 @@
 package com.chivers.kotlinwanandroid.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.chivers.kotlinwanandroid.model.ArticlesResponse
 import com.chivers.kotlinwanandroid.model.BannerResponse
@@ -26,5 +27,6 @@ class HomeFragmentViewModel public constructor( homeRepository:HomeFragmentRepos
     fun getArticleModel(){
         failedArticles = homeRepository1.failedArticle
         articles = homeRepository1.getArticles()
+        Log.i("articles",articles.value?.data?.datas.toString())
     }
 }
