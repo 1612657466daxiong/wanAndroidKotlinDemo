@@ -16,6 +16,7 @@ import com.chivers.kotlinwanandroid.repository.HomeFragmentRepository
 import com.chivers.kotlinwanandroid.repository.HomeRepository
 import com.chivers.kotlinwanandroid.ui.adapter.HomeArticlesAdapter
 import com.chivers.kotlinwanandroid.ui.adapter.HomeBannerAdapter
+import com.chivers.kotlinwanandroid.ui.view.ArtiDecoration
 import com.chivers.kotlinwanandroid.viewmodels.HomeFragmentVMFactory
 import com.chivers.kotlinwanandroid.viewmodels.HomeFragmentViewModel
 import com.chivers.kotlinwanandroid.viewmodels.HomeViewModel
@@ -46,6 +47,7 @@ class HomeFragment : Fragment()  {
         articleAdapter = HomeArticlesAdapter()
         binding.homeBanner.adapter = adapter
         binding.homeList.adapter = articleAdapter
+        binding.homeList.addItemDecoration(ArtiDecoration(10))
         binding.homeList.layoutManager = LinearLayoutManager(this.context)
 
 

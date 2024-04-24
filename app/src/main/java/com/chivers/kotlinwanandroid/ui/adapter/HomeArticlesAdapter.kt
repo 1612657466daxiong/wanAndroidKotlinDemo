@@ -16,16 +16,20 @@ class HomeArticlesAdapter : RecyclerView.Adapter<HomeArticlesAdapter.ArticleView
 
     class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mTvAuthor = itemView.findViewById<TextView>(R.id.tvAuthor)
-        private val mTvUplader = itemView.findViewById<TextView>(R.id.tvUploader)
+        private val tvChapterName = itemView.findViewById<TextView>(R.id.tvChapterName)
         private val mIvProfile = itemView.findViewById<SimpleDraweeView>(R.id.ivProfileTop)
         private val mTvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
+        private val  mTvTime = itemView.findViewById<TextView>(R.id.tvTime)
+
         fun bindData(article: Article){
 //            mIvProfile.setImageURI(article.author)
-            if(article.author.isEmpty())  mTvUplader.setText(article.shareUser)
-            else mTvUplader.setText(article.author)
+            if(article.chapterName.isNotEmpty())  tvChapterName.setText(article.shareUser)
             if (article.title.isNotEmpty()){
                 mTvTitle.setText(article.title)
             }
+            if(article.author.isNotEmpty()) mTvAuthor.setText(article.author)
+            else if(article.shareUser.isNotEmpty()) mTvAuthor.setText(article.shareUser)
+            mTvTime.setText(article.niceDate)
         }
     }
 

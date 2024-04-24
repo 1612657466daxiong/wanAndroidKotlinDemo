@@ -4,6 +4,7 @@
     android:layout_height="180dp"
     android:paddingHorizontal="15dp"
     android:paddingVertical="20dp"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.facebook.drawee.view.SimpleDraweeView
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +21,7 @@
         android:textAlignment="viewEnd"
         android:textSize="15sp"
         android:textColor="#999999"
-        android:id="@+id/tvUploader"
+        android:id="@+id/tvChapterName"
         android:layout_height="wrap_content"/>
     <TextView
         app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +39,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvTime"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
         android:textColor="#333333"
         android:text=""
         android:ellipsize="end"
@@ -57,6 +59,7 @@
         android:id="@+id/ivCollect"
         android:layout_width="30dp"
         android:layout_height="30dp"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
