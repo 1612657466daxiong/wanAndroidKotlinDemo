@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.chivers.kotlinwanandroid.databinding.FragmentHomeBinding
+import com.chivers.kotlinwanandroid.livedatabus.OKLiveDataBusKT
 import com.chivers.kotlinwanandroid.repository.HomeFragmentRepository
 import com.chivers.kotlinwanandroid.repository.HomeRepository
 import com.chivers.kotlinwanandroid.ui.adapter.HomeArticlesAdapter
@@ -49,7 +50,6 @@ class HomeFragment : Fragment()  {
         binding.homeList.adapter = articleAdapter
         binding.homeList.addItemDecoration(ArtiDecoration(10))
         binding.homeList.layoutManager = LinearLayoutManager(this.context)
-
 
         return root
     }
