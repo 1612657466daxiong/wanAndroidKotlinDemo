@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -17,14 +18,16 @@ import com.chivers.kotlinwanandroid.repository.HomeFragmentRepository
 import com.chivers.kotlinwanandroid.repository.HomeRepository
 import com.chivers.kotlinwanandroid.ui.adapter.HomeArticlesAdapter
 import com.chivers.kotlinwanandroid.ui.adapter.HomeBannerAdapter
+import com.chivers.kotlinwanandroid.ui.base.BaseFragment
 import com.chivers.kotlinwanandroid.ui.view.ArtiDecoration
 import com.chivers.kotlinwanandroid.viewmodels.HomeFragmentVMFactory
 import com.chivers.kotlinwanandroid.viewmodels.HomeFragmentViewModel
 import com.chivers.kotlinwanandroid.viewmodels.HomeViewModel
 import com.chivers.kotlinwanandroid.viewmodels.HomeViewModelFactory
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 
 
-class HomeFragment : Fragment()  {
+class HomeFragment : BaseFragment()  {
 
     private var _binding: FragmentHomeBinding? = null
     private var adapter:HomeBannerAdapter? =null
@@ -36,6 +39,7 @@ class HomeFragment : Fragment()  {
 
     private  var homeViewModel: HomeFragmentViewModel? =null
     private var changeCallback:OnPageChangeCallback?=null
+    private var pageIndex =1
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,10 +54,20 @@ class HomeFragment : Fragment()  {
         binding.homeList.adapter = articleAdapter
         binding.homeList.addItemDecoration(ArtiDecoration(10))
         binding.homeList.layoutManager = LinearLayoutManager(this.context)
-
+        createView();
         return root
     }
 
+    private fun createView() {
+        binding.smartRefreshLayout.setOnRefreshListener{
+            pageIndex=1;
+            homeViewModel?.getArticleModel(pageIndex)
+
+        }
+        binding.smartRefreshLayout.setOnLoadMoreListener{
+            homeViewModel?.getArticleModel(pageIndex++)
+        }
+    }
 
 
     override fun onStart() {
@@ -69,11 +83,11 @@ class HomeFragment : Fragment()  {
                 it->binding?.viewmodel = homeViewModel
             adapter?.setData(binding.viewmodel?.banner?.value?.data)
         }
-        homeViewModel?.getArticleModel()
+        homeViewModel?.getArticleModel(pageIndex)
 
         homeViewModel?.articles?.observe(this){
             it->binding?.viewmodel = homeViewModel
-            articleAdapter?.setData(binding.viewmodel?.articles?.value?.data?.datas)
+            articleAdapter?.setData(binding.viewmodel?.articles?.value)
         }
 
 

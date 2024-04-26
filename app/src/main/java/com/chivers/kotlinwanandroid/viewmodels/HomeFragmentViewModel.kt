@@ -2,6 +2,8 @@ package com.chivers.kotlinwanandroid.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.chivers.kotlinwanandroid.model.Article
 import com.chivers.kotlinwanandroid.model.ArticlesResponse
 import com.chivers.kotlinwanandroid.model.BannerResponse
 import com.chivers.kotlinwanandroid.repository.HomeFragmentRepository
@@ -14,9 +16,9 @@ class HomeFragmentViewModel public constructor( homeRepository:HomeFragmentRepos
     }
     lateinit var failed: LiveData<String>
 
-    lateinit var banner: LiveData<BannerResponse>
+    lateinit var banner: MutableLiveData<BannerResponse>
 
-    lateinit var articles: LiveData<ArticlesResponse>
+    lateinit var articles: MutableLiveData<List<Article>>
     lateinit var failedArticles:LiveData<String>
 
     fun getBannerModel(){
@@ -24,9 +26,9 @@ class HomeFragmentViewModel public constructor( homeRepository:HomeFragmentRepos
         banner = homeRepository1.getBanner()
     }
 
-    fun getArticleModel(){
+    fun getArticleModel(pageIndex:Int){
         failedArticles = homeRepository1.failedArticle
-        articles = homeRepository1.getArticles()
-        Log.i("articles",articles.value?.data?.datas.toString())
+        articles = homeRepository1.getArticles(pageIndex)
+        Log.i("articles",articles.toString())
     }
 }

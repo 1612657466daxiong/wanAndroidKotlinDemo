@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.MutableLiveData
 import com.chivers.kotlinwanandroid.api.ApiService
+import com.chivers.kotlinwanandroid.model.Article
 import com.chivers.kotlinwanandroid.model.ArticlesResponse
 import com.chivers.kotlinwanandroid.model.BannerResponse
 import com.chivers.kotlinwanandroid.network.NetWorkApi
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 class HomeFragmentRepository :BaseRepository() {
     val bannerImage: MutableLiveData<BannerResponse> = MutableLiveData<BannerResponse>()
     val failed: MutableLiveData<String> = MutableLiveData()
-    val articlesList:MutableLiveData<ArticlesResponse> = MutableLiveData<ArticlesResponse>()
+    val articlesList:MutableLiveData<List<Article>> = MutableLiveData<List<Article>>()
     val failedArticle:MutableLiveData<String> = MutableLiveData()
 
 
@@ -37,14 +38,20 @@ class HomeFragmentRepository :BaseRepository() {
         return bannerImage
     }
 
-    fun getArticles():MutableLiveData<ArticlesResponse> {
+    fun getArticles(pageIndex:Int):MutableLiveData<List<Article>> {
         MainScope().launch {
             NetWorkApi.createService(ApiService::class.java)
-                .getArticlesCall(1).flowOn(Dispatchers.IO).catch {
+                .getArticlesCall(pageIndex).flowOn(Dispatchers.IO).catch {
                     Log.e("xqw","rrrrr"+it.message)
                     failedArticle.postValue(it.message)
                 }.map { value -> value }.flowOn(Dispatchers.Main).collect() {
-                    articlesList.value = it
+                    if(pageIndex>1){
+                        articlesList.value?.plus(it.data.datas)
+
+                    }else{
+                        articlesList.value = it.data.datas
+                    }
+
                 }
         }
         return articlesList
