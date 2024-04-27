@@ -42,6 +42,14 @@ class HomeArticlesAdapter : RecyclerView.Adapter<HomeArticlesAdapter.ArticleView
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public fun addData(list: List<Article>?){
+        if(list!=null){
+            data?.addAll(list);
+            notifyDataSetChanged()
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val inflate = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false);
         val articleViewHolder = ArticleViewHolder(inflate);

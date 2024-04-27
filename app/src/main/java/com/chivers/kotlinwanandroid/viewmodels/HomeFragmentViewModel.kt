@@ -14,21 +14,16 @@ class HomeFragmentViewModel public constructor( homeRepository:HomeFragmentRepos
     init {
         homeRepository1 = homeRepository
     }
-    lateinit var failed: LiveData<String>
 
-    lateinit var banner: MutableLiveData<BannerResponse>
-
-    lateinit var articles: MutableLiveData<List<Article>>
-    lateinit var failedArticles:LiveData<String>
 
     fun getBannerModel(){
-        failed = homeRepository1.failed
-        banner = homeRepository1.getBanner()
+         homeRepository1.failed
+         homeRepository1.getBanner()
     }
 
     fun getArticleModel(pageIndex:Int){
-        failedArticles = homeRepository1.failedArticle
-        articles = homeRepository1.getArticles(pageIndex)
-        Log.i("articles",articles.toString())
+         homeRepository1.failedArticle
+        homeRepository1.getArticles(pageIndex)
+
     }
 }

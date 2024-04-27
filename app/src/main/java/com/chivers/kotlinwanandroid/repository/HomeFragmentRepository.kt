@@ -8,6 +8,7 @@ import com.chivers.kotlinwanandroid.model.Article
 import com.chivers.kotlinwanandroid.model.ArticlesResponse
 import com.chivers.kotlinwanandroid.model.BannerResponse
 import com.chivers.kotlinwanandroid.network.NetWorkApi
+import com.chivers.kotlinwanandroid.viewmodels.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.catch
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class HomeFragmentRepository :BaseRepository() {
+class HomeFragmentRepository :BaseRepository()  {
     val bannerImage: MutableLiveData<BannerResponse> = MutableLiveData<BannerResponse>()
     val failed: MutableLiveData<String> = MutableLiveData()
     val articlesList:MutableLiveData<List<Article>> = MutableLiveData<List<Article>>()
@@ -46,10 +47,13 @@ class HomeFragmentRepository :BaseRepository() {
                     failedArticle.postValue(it.message)
                 }.map { value -> value }.flowOn(Dispatchers.Main).collect() {
                     if(pageIndex>1){
-                        articlesList.value?.plus(it.data.datas)
-
+                         var list = ArrayList<Article>();
+                        articlesList?.value?.let { it1 -> list.addAll(it1) }
+                        it.data.datas.let { it2 -> list.addAll(it2) }
+//                        Log.e("xqw","articlesList  "+articlesList.value)
+                        articlesList.postValue(list)
                     }else{
-                        articlesList.value = it.data.datas
+                        articlesList.postValue( it.data.datas)
                     }
 
                 }

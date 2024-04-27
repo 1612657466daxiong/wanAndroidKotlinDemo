@@ -61,11 +61,14 @@ class HomeFragment : BaseFragment()  {
     private fun createView() {
         binding.smartRefreshLayout.setOnRefreshListener{
             pageIndex=1;
+            Log.e("change", "============================OnRefresh \n $it")
             homeViewModel?.getArticleModel(pageIndex)
 
         }
         binding.smartRefreshLayout.setOnLoadMoreListener{
-            homeViewModel?.getArticleModel(pageIndex++)
+            Log.e("change", "============================LoadMore \n $it")
+            pageIndex +=1
+            homeViewModel?.getArticleModel(pageIndex)
         }
     }
 
@@ -74,20 +77,37 @@ class HomeFragment : BaseFragment()  {
         super.onStart()
         homeViewModel = ViewModelProvider(this, HomeFragmentVMFactory(HomeFragmentRepository())).get(HomeFragmentViewModel::class.java)
         homeViewModel?.getBannerModel()
-        homeViewModel?.failed?.observe(this){
+        homeViewModel?.homeRepository1?.failed?.observe(this){
                 it->
             Toast.makeText(context,it, Toast.LENGTH_LONG)
         }
 
-        homeViewModel?.banner?.observe(this) {
+        homeViewModel?.homeRepository1?.bannerImage?.observe(this) {
                 it->binding?.viewmodel = homeViewModel
-            adapter?.setData(binding.viewmodel?.banner?.value?.data)
+            adapter?.setData(it?.data)
         }
         homeViewModel?.getArticleModel(pageIndex)
 
-        homeViewModel?.articles?.observe(this){
+        homeViewModel?.homeRepository1?.articlesList?.observe(this){
             it->binding?.viewmodel = homeViewModel
-            articleAdapter?.setData(binding.viewmodel?.articles?.value)
+            Log.e("change", "==================================== \n $it")
+            if(pageIndex==1){
+                articleAdapter?.setData(it)
+                binding?.smartRefreshLayout?.finishRefresh(true)
+            }else{
+                articleAdapter?.addData(it)
+                binding?.smartRefreshLayout?.finishLoadMore(true)
+            }
+
+        }
+        homeViewModel?.homeRepository1?.failedArticle?.observe(this){
+
+            if(pageIndex==1){
+                binding?.smartRefreshLayout?.finishRefresh(false)
+            }else{
+                binding?.smartRefreshLayout?.finishLoadMore(false)
+            }
+
         }
 
 
